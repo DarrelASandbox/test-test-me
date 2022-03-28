@@ -1,0 +1,15 @@
+{
+  "name": "test-me",
+  "version": "1.0.0",
+  "description": "- The Modern Javascript Bootcamp Course (2022) - The most up-to-date JS resource online! Master Javascript by building a beautiful portfolio of projects! - Tutorial for tme - [Colt Steele](https://github.com/Colt) - [Stephen Grider](https://github.com/StephenGrider)",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bin": {
+    "tme": "app.js"
+  }
+}
