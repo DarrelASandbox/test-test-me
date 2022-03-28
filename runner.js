@@ -15,20 +15,29 @@ class Runner {
       console.log(`\n${file.shortName}\n`.yellow);
 
       const beforeEaches = [];
+      const its = [];
+
       global.render = render;
       global.beforeEach = (fn) => beforeEaches.push(fn);
       global.it = async (desc, fn) => {
-        beforeEaches.forEach((func) => func());
-        try {
-          await fn();
-          console.log(`Success - ${desc}`.bold.green);
-        } catch (error) {
-          console.log(`Failed - ${desc}`.bold.red);
-          console.log(`\n${error.message}`.red);
-        }
+        its.push({ desc, fn });
       };
+
       try {
         require(file.name);
+        for (let _it of its) {
+          const { desc, fn } = _it;
+          for (let _before of beforeEaches) {
+            _before();
+          }
+          try {
+            await fn();
+            console.log(`Success - ${desc}`.bold.green);
+          } catch (error) {
+            console.log(`Failed - ${desc}`.bold.red);
+            console.log(`\n${error.message}`.red);
+          }
+        }
       } catch (error) {
         console.log('\nERROR LOADING FILE'.bgMagenta, `${file.name}`.yellow);
         console.log(`\n${error}`.bold.red);
