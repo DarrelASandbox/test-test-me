@@ -1,5 +1,6 @@
 const fs = require('fs');
 const path = require('path');
+const colors = require('colors');
 
 class Runner {
   constructor() {
@@ -8,13 +9,26 @@ class Runner {
 
   async runTests() {
     for (const file of this.testFiles) {
+      console.log(`${file.shortName}\n`.yellow);
+
       const beforeEaches = [];
       global.beforeEach = (fn) => beforeEaches.push(fn);
       global.it = (desc, fn) => {
         beforeEaches.forEach((func) => func());
-        fn();
+        try {
+          fn();
+          console.log(`Success - ${desc}`.bold.green);
+        } catch (error) {
+          console.log(`Failed - ${desc}`.bold.red);
+          console.log(`\n${error.message}`.red);
+        }
       };
-      require(file.name);
+      try {
+        require(file.name);
+      } catch (error) {
+        console.log('\nERROR LOADING FILE'.bgMagenta, `${file.name}`.yellow);
+        console.log(`\n${error}`.bold.red);
+      }
     }
   }
 
@@ -27,7 +41,7 @@ class Runner {
       const stats = await fs.promises.lstat(filepath);
 
       if (stats.isFile() && file.includes('.test.js')) {
-        this.testFiles.push({ name: filepath });
+        this.testFiles.push({ name: filepath, shortName: file });
       } else if (stats.isDirectory()) {
         const childFiles = await fs.promises.readdir(filepath);
 

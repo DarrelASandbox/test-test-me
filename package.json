@@ -11,5 +11,8 @@
   "license": "ISC",
   "bin": {
     "tme": "app.js"
+  },
+  "dependencies": {
+    "colors": "^1.4.0"
   }
 }

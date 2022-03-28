@@ -2,9 +2,7 @@ const assert = require('assert');
 const { forEach } = require('../app');
 
 let numbers;
-beforeEach(() => {
-  numbers = [1, 2, 3];
-});
+beforeEach(() => (numbers = [1, 2, 3]));
 
 it('should sum an array', () => {
   let total = 0;
@@ -17,6 +15,5 @@ it('should sum an array', () => {
   numbers.push(3);
 });
 
-it('beforeEach is ran each time', () => {
-  assert.strictEqual(numbers.length, 3);
-});
+it('beforeEach is ran each time', () => assert.strictEqual(numbers.length, 4));
+zcz;
