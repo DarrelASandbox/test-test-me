@@ -6,6 +6,18 @@ class Runner {
     this.testFiles = [];
   }
 
+  async runTests() {
+    for (const file of this.testFiles) {
+      const beforeEaches = [];
+      global.beforeEach = (fn) => beforeEaches.push(fn);
+      global.it = (desc, fn) => {
+        beforeEaches.forEach((func) => func());
+        fn();
+      };
+      require(file.name);
+    }
+  }
+
   // Breadth First Search
   async collectFiles(targetPath) {
     const files = await fs.promises.readdir(targetPath);
@@ -19,7 +31,8 @@ class Runner {
       } else if (stats.isDirectory()) {
         const childFiles = await fs.promises.readdir(filepath);
 
-        // spread files from array
+        // spread childFiles array & push to files array
+        // recursive magic
         files.push(
           ...childFiles.map((childFile) => path.join(file, childFile))
         );

@@ -16,6 +16,8 @@
 tme
 ```
 
+- [global variable in browser & Node.js](https://nodejs.org/api/globals.html#globals_global)
+
 ### Testing Framework Requirements
 
 1. Must be a Node-based CLI framework
