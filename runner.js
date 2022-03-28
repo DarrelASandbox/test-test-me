@@ -1,6 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const colors = require('colors');
+const render = require('./render');
+
+const ignoreDirectories = ['node_modules'];
 
 class Runner {
   constructor() {
@@ -9,9 +12,10 @@ class Runner {
 
   async runTests() {
     for (const file of this.testFiles) {
-      console.log(`${file.shortName}\n`.yellow);
+      console.log(`\n${file.shortName}\n`.yellow);
 
       const beforeEaches = [];
+      global.render = render;
       global.beforeEach = (fn) => beforeEaches.push(fn);
       global.it = (desc, fn) => {
         beforeEaches.forEach((func) => func());
@@ -42,7 +46,7 @@ class Runner {
 
       if (stats.isFile() && file.includes('.test.js')) {
         this.testFiles.push({ name: filepath, shortName: file });
-      } else if (stats.isDirectory()) {
+      } else if (stats.isDirectory() && !ignoreDirectories.includes(file)) {
         const childFiles = await fs.promises.readdir(filepath);
 
         // spread childFiles array & push to files array

@@ -27,6 +27,38 @@ tme
 5. CLI must have a 'watch mode' so we don't have to keep restarting it over and over
 6. CLI must automatically find and run all files in our project that have a name of '\*.test.js'
 
+![JSDOM](JSDOM.png)
+
+<style>table,th,td {text-align: center; width: 500px}</style>
+
+---
+
+<table>
+  <thead>
+    <tr>
+      <th colspan="2">Mocha in the Browser</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>createAutoComplete</td>
+      <td>Email Validation</td>
+    </tr>
+    <tr>
+      <td>We had a function to run as manay times as we wanted</td>
+      <td>Form logic executes instantly with 'index.js' being loaded</td>
+    </tr>
+    <tr>
+      <td>We could create a new autocomplete for each test</td>
+      <td>No easy ability to bind to a second form</td>
+    </tr>
+    <tr>
+      <td>Direct handle onto the function we want to test</td>
+      <td>Effectively, can only run one test</td>
+    </tr>
+  </tbody>
+</table>
+
 ### Implementation Plan
 
 1. File Collection
