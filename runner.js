@@ -17,10 +17,10 @@ class Runner {
       const beforeEaches = [];
       global.render = render;
       global.beforeEach = (fn) => beforeEaches.push(fn);
-      global.it = (desc, fn) => {
+      global.it = async (desc, fn) => {
         beforeEaches.forEach((func) => func());
         try {
-          fn();
+          await fn();
           console.log(`Success - ${desc}`.bold.green);
         } catch (error) {
           console.log(`Failed - ${desc}`.bold.red);
